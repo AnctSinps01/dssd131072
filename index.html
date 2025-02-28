@@ -158,12 +158,12 @@
             } catch (error) {
                 addMessage('error', `错误: ${error.message}`);
             }
+            // 清空问题输入框
+            document.getElementById('question').value = '';
+
             // 添加AI回复到上下文（保留最近5轮对话）
             conversationHistory.push({ role: 'assistant', content: answer });
             conversationHistory = conversationHistory.slice(-10); // 控制上下文长度
-
-            // 清空问题输入框
-            document.getElementById('question').value = '';
         }
 
         function addMessage(role, content) {
