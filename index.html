@@ -147,7 +147,7 @@
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML = `
                 <strong>${role === 'user' ? '您' : '助手'}:</strong>
-                ${renderMarkdown(content)}
+                ${content}
             `;
             conversation.appendChild(messageDiv);
             conversation.scrollTop = conversation.scrollHeight;
