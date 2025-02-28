@@ -77,6 +77,30 @@
     <div id="conversation"></div>
 
     <script>
+    // 配置marked支持数学公式
+    marked.setOptions({
+        breaks: true, // 自动换行
+        highlight: function(code) { return code; },
+        extensions: [{
+            name: 'math',
+            level: 'block',
+            start(src) { return src.indexOf('$') === 0; },
+            tokenizer(src) {
+                const match = src.match(/^\$\$([^$]+)\$\$/);
+                if (match) return { type: 'math', raw: match[0], text: match[1] };
+            },
+            renderer(token) {
+                return katex.renderToString(token.text, { throwOnError: false });
+            }
+        }]
+    });
+
+    function renderMarkdown(content) {
+        const rawHtml = marked.parse(content);
+        return DOMPurify.sanitize(rawHtml); // 防止XSS攻击
+    }
+
+    let conversationHistory = []; // 用于存储对话上下文
         async function sendMessage() {
             const apiKey = document.getElementById('apiKey').value;
             const question = document.getElementById('question').value;
@@ -93,6 +117,9 @@
                 return;
             }
 
+            // 添加用户消息到上下文
+            conversationHistory.push({ role: 'user', content: question });
+
             // 添加用户消息
             addMessage('user', question);
             
@@ -105,10 +132,7 @@
                     },
                     body: JSON.stringify({
                         model: modelVersion, // 使用选择的模型
-                        messages: [{
-                            role: "user",
-                            content: question
-                        }]
+                        messages: conversationHistory
                     })
                 });
 
@@ -134,6 +158,9 @@
             } catch (error) {
                 addMessage('error', `错误: ${error.message}`);
             }
+            // 添加AI回复到上下文（保留最近5轮对话）
+            conversationHistory.push({ role: 'assistant', content: answer });
+            conversationHistory = conversationHistory.slice(-10); // 控制上下文长度
 
             // 清空问题输入框
             document.getElementById('question').value = '';
@@ -145,7 +172,7 @@
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML = `
                 <strong>${role === 'user' ? '您' : '助手'}:</strong>
-                ${content}
+                ${renderMarkdown(content)}
             `;
             conversation.appendChild(messageDiv);
             conversation.scrollTop = conversation.scrollHeight;
