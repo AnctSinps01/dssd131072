@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <title>DeepSeek 对话助手</title>
@@ -37,22 +36,39 @@
         .assistant {
             background-color: #f5f5f5;
         }
+        .model-selector {
+            margin: 10px 0;
+        }
+        .thought {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
-
 <body>
     <h2>DeepSeek 对话助手</h2>
-
+    
     <div class="input-group">
-        <input type="password" id="apiKey" placeholder="请输入DeepSeek API Key">
+        <input type="password" 
+               id="apiKey" 
+               placeholder="请输入DeepSeek API Key">
     </div>
 
-    <div class="input-group">
-        <textarea id="question" rows="4" placeholder="请输入您的问题..."></textarea>
+    <div class="model-selector">
+        <label>模型选择：</label>
+        <label><input type="radio" name="modelVersion" value="deepseek-chat" checked> DeepSeek-Chat</label>
+        <label><input type="radio" name="modelVersion" value="deepseek-reasoner"> DeepSeek-Reasoner</label>
     </div>
-
+    
+    <div class="input-group">
+        <textarea id="question" 
+                  rows="4" 
+                  placeholder="请输入您的问题..."></textarea>
+    </div>
+    
     <button onclick="sendMessage()">发送</button>
-
+    
     <div id="conversation"></div>
 
     <script>
@@ -60,17 +76,18 @@
             const apiKey = document.getElementById('apiKey').value;
             const question = document.getElementById('question').value;
             const conversation = document.getElementById('conversation');
-        
+            const modelVersion = document.querySelector('input[name="modelVersion"]:checked').value;
+
             if (!apiKey) {
                 alert('请输入API Key');
                 return;
             }
-        
+
             if (!question) {
                 alert('请输入问题');
                 return;
             }
-        
+
             // 添加用户消息
             addMessage('user', question);
             
@@ -82,42 +99,52 @@
                         'Authorization': `Bearer ${apiKey}`
                     },
                     body: JSON.stringify({
-                        model: "deepseek-chat",
+                        model: modelVersion, // 使用选择的模型
                         messages: [{
                             role: "user",
                             content: question
                         }]
                     })
                 });
-        
+
                 const data = await response.json();
                 
                 if (response.ok) {
-                    const answer = data.choices[0].message.content;
-                    addMessage('assistant', answer);
+                    if (modelVersion === 'deepseek-reasoner') {
+                        // 如果是Reasoner模型，显示思考过程
+                        const thought = data.choices[0].message.reasoning_content;
+                        const answer = data.choices[0].message.content;
+                        addMessage('assistant', `
+                            <div class="thought">思考：${thought}</div>
+                            <div>回答：${answer}</div>
+                        `);
+                    } else {
+                        // 如果是Chat模型，直接显示回答
+                        const answer = data.choices[0].message.content;
+                        addMessage('assistant', answer);
+                    }
                 } else {
                     throw new Error(data.error?.message || '请求失败');
                 }
             } catch (error) {
                 addMessage('error', `错误: ${error.message}`);
             }
-        
+
             // 清空问题输入框
             document.getElementById('question').value = '';
         }
-        
+
         function addMessage(role, content) {
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML = `
                 <strong>${role === 'user' ? '您' : '助手'}:</strong>
-                <div>${content}</div>
+                ${content}
             `;
             conversation.appendChild(messageDiv);
             conversation.scrollTop = conversation.scrollHeight;
         }
     </script>
 </body>
-
 </html>
