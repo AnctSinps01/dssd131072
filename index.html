@@ -4,8 +4,19 @@
 
     <meta charset="UTF-8">
     <title>DeepSeek 对话助手</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渲染夹杂数学公式的文本</title>
+    <!-- 引入MathJax库 -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+        .math-container {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -144,12 +155,23 @@
         function addMessage(role, content) {
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
+
+            // 处理文本中的公式
+            // 将 \( ... \) 替换为 MathJax 行内公式格式
+            let processedText = content.replace(/\\\((.*?)\\\)/g, '\\( $1 \\)');
+            // 将 \[ ... \] 替换为 MathJax 独立公式格式
+            processedText = processedText.replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
+            
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML = `
                 <strong>${role === 'user' ? '您' : '助手'}:</strong>
-                ${content}
+                ${processedText}
             `;
             conversation.appendChild(messageDiv);
+            // 告诉MathJax重新渲染页面中的公式
+            if (window.MathJax) {
+                MathJax.typesetPromise([messageDiv]).catch((err) => console.error('MathJax渲染错误:', err));
+            }
             conversation.scrollTop = conversation.scrollHeight;
         }
     </script>
