@@ -150,7 +150,7 @@
             // 添加AI回复到上下文
             conversationHistory.push({ role: 'assistant', content: answer });
             // 保留最近5轮对话
-            conversationHistory = conversationHistory.slice(-10);
+            //conversationHistory = conversationHistory.slice(-10);
         }
 
         function addMessage(role, content) {
