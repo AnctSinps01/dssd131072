@@ -51,16 +51,16 @@
         .model-selector {
             border: 1px solid #ccc;
             padding: 20px;
-            width: 160px;
-            margin: 20px auto;
+            margin: 20PX 0;
             text-align: left;
             border-radius: 10px;
             background-color: #f9f9f9;
         }
         .model-option {
-            display: inline;
-            margin: 10px 0;
+            display: inline-block;
+            margin: 10px 20px 10px 0;
             font-size: 16px;
+            white-space: nowrap
         }
         .model-option input {
             margin-right: 10px;
@@ -83,7 +83,8 @@
 
     <div class="model-selector">
         <div class="model-option">
-            <input type="radio" name="modelVersion" value="deepseek-chat">Deepseek-V3
+            <input type="radio" id="option1" name="modelVersion" value="deepseek-chat">
+            <label for="option1">Deepseek-V3</label>
         </div>
         <div class="model-option">
             <input type="radio" id="option2" name="modelVersion" value="deepseek-reasoner">
