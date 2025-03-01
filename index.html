@@ -46,6 +46,7 @@
         }
         .assistant {
             background-color: #f5f5f5;
+            white-space: pre-wrap;
         }
         .model-selector {
             margin: 10px 0;
@@ -161,9 +162,13 @@
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
 
-            // 处理文本中的公式
+            let processedText = content.split(/\n\n+/) // 分割段落
+            processedText = processedText.replace(/\n/g, '<br>');
+            processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            processedText = processedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
             // 将 \( ... \) 替换为 MathJax 行内公式格式
-            let processedText = content.replace(/\\\((.*?)\\\)/g, '\\( $1 \\)');
+            processedText = processedText.replace(/\\\((.*?)\\\)/g, '\\( $1 \\)');
             // 将 \[ ... \] 替换为 MathJax 独立公式格式
             processedText = processedText.replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
             
