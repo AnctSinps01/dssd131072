@@ -49,10 +49,21 @@
             white-space: pre-wrap;
         }
         .model-selector {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .model-option {
             display: block;
             margin: 10px 0;
-            text-align: left;
             font-size: 16px;
+        }
+        .model-option input {
+            margin-right: 10px;
         }
         .thought {
             color: #666;
@@ -73,6 +84,16 @@
     <div class="model-selector">
         <label><input type="radio" name="modelVersion" value="deepseek-chat"> DeepSeek-V3</label>
         <label><input type="radio" name="modelVersion" value="deepseek-reasoner"> DeepSeek-R1</label>
+    </div>
+    <div class="model-selector">
+        <div class="model-option">
+            <input type="radio" id="option1" name="modelVersion" value="deepseek-chat">
+            <label for="option1">Deepseek-V3</label>
+        </div>
+        <div class="model-option">
+            <input type="radio" id="option2" name="modelVersion" value="deepseek-reasoner">
+            <label for="option2">Deepseek-R1</label>
+        </div>
     </div>
     
     <div class="input-group">
