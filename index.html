@@ -133,10 +133,14 @@
                             <div class="thought">思考：${thought}</div>
                             <div>回答：${answer}</div>
                         `);
+                        // 添加AI回复到上下文
+                        conversationHistory.push({ role: 'assistant', content: answer });
                     } else {
                         // 如果是Chat模型，直接显示回答
                         const answer = data.choices[0].message.content;
                         addMessage('assistant', answer);
+                        // 添加AI回复到上下文
+                        conversationHistory.push({ role: 'assistant', content: answer });
                     }
                 } else {
                     throw new Error(data.error?.message || '请求失败');
@@ -145,9 +149,8 @@
                 addMessage('error', `错误: ${error.message}`);
             }
 
-            // 添加AI回复到上下文（保留最近5轮对话）
-            conversationHistory.push({ role: 'assistant', content: answer });
-            conversationHistory = conversationHistory.slice(-10); // 控制上下文长度
+            // 保留最近5轮对话
+            conversationHistory = conversationHistory.slice(-10);
         }
 
         function addMessage(role, content) {
