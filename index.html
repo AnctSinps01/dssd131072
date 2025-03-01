@@ -162,7 +162,7 @@
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
 
-            let processedText = content.split(/\n\n+/) // 分割段落
+            let processedText = content.split(/\n\n+/).map(para => `<p>${para}</p>`).join('');
             processedText = processedText.replace(/\n/g, '<br>');
             processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             processedText = processedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
