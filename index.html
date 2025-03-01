@@ -129,6 +129,10 @@
                         // 如果是Reasoner模型，显示思考过程
                         const thought = data.choices[0].message.reasoning_content;
                         const answer = data.choices[0].message.content;
+
+                        // 添加AI回复到上下文
+                        conversationHistory.push({ role: 'assistant', content: answer });
+                        
                         addMessage('assistant', `
                             <div class="thought">思考：${thought}</div>
                             <div>回答：${answer}</div>
@@ -136,6 +140,10 @@
                     } else {
                         // 如果是Chat模型，直接显示回答
                         const answer = data.choices[0].message.content;
+
+                        // 添加AI回复到上下文
+                        conversationHistory.push({ role: 'assistant', content: answer });
+                        
                         addMessage('assistant', answer);
                     }
                 } else {
@@ -145,8 +153,6 @@
                 addMessage('error', `错误: ${error.message}`);
             }
 
-            // 添加AI回复到上下文
-            conversationHistory.push({ role: 'assistant', content: answer });
             // 保留最近5轮对话
             conversationHistory = conversationHistory.slice(-18);
         }
