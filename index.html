@@ -137,8 +137,6 @@
                         // 如果是Chat模型，直接显示回答
                         const answer = data.choices[0].message.content;
                         addMessage('assistant', answer);
-                        // 添加AI回复到上下文
-                        //conversationHistory.push({ role: 'assistant', content: answer });
                     }
                 } else {
                     throw new Error(data.error?.message || '请求失败');
@@ -150,7 +148,7 @@
             // 添加AI回复到上下文
             conversationHistory.push({ role: 'assistant', content: answer });
             // 保留最近5轮对话
-            //conversationHistory = conversationHistory.slice(-10);
+            conversationHistory = conversationHistory.slice(-18);
         }
 
         function addMessage(role, content) {
