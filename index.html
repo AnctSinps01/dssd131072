@@ -28,10 +28,11 @@
             text-decoration: underline;
         }
         pre code {
-            display: block;
-            padding: 12px;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
+            white-space: pre;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background-color: #f8f8f8;
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
         }
 
         .math-container {
@@ -237,8 +238,9 @@
             }
 
             function generateMessageHtml(model, thinking, answer) {
+
                 const processCodeBlocks = text => {
-                    return text.replace(/```(\w+)\n([\s\S]*?)```/g, (match, lang, code) => {
+                    return text.replace(/```(\w*)\s*([\s\S]*?)```/g, (match, lang, code) => {
                         return `<div class="code-container">
                             <div class="code-header">
                                 <span>${lang}</span>
@@ -251,13 +253,19 @@
                 // 文本处理函数
                 const processText = text => {
                     if (!text) return '';
-                    return processCodeBlocks(text
+                    
+                    // 先处理代码块
+                    let processed = processCodeBlocks(text);
+                    
+                    // 再处理其他格式
+                    processed = processed
                         .replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
                         .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
-                        .replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]')
-                    );
+                        .replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
+                
+                    return processed;
                 };
 
                 let content = '<strong>助手:</strong>';
