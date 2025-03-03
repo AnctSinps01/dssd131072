@@ -6,6 +6,34 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+        .code-container {
+            position: relative;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f6f8fa;
+        }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 8px;
+            background-color: #eaeef2;
+            font-size: 0.9em;
+        }
+        .copy-btn {
+            cursor: pointer;
+            color: #0366d6;
+        }
+        .copy-btn:hover {
+            text-decoration: underline;
+        }
+        pre code {
+            display: block;
+            padding: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
         .math-container {
             margin: 20px 0;
             padding: 10px;
@@ -209,15 +237,27 @@
             }
 
             function generateMessageHtml(model, thinking, answer) {
+                const processCodeBlocks = text => {
+                    return text.replace(/```(\w+)\n([\s\S]*?)```/g, (match, lang, code) => {
+                        return `<div class="code-container">
+                            <div class="code-header">
+                                <span>${lang}</span>
+                                <span class="copy-btn" onclick="copyCode(this)">复制</span>
+                            </div>
+                            <pre><code>${code.trim()}</code></pre>
+                        </div>`;
+                    });
+                };
                 // 文本处理函数
                 const processText = text => {
                     if (!text) return '';
-                    return text
-                        .replace(/\n/g, '<br>')
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                        .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
-                        .replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
+                    return processCodeBlocks(text
+                        .replace(/\n/g '<br>')
+                        .replace(/\*\*(.*?)\*\*/g '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g '<em>$1</em>')
+                        .replace(/\\\((.*?)\\\)/g '\\( $1 \\)')
+                        .replace(/\\\[(.*?)\\\]/g '\\[ $1 \\]')
+                    );
                 };
 
                 let content = '<strong>助手:</strong>';
@@ -248,6 +288,15 @@
                 MathJax.typesetPromise([messageDiv]);
             }
             conversation.scrollTop = conversation.scrollHeight;
+        }
+
+        // 新增复制功能
+        function copyCode(button) {
+            const code = button.closest('.code-container').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '已复制!';
+                setTimeout(() => button.textContent = '复制', 2000);
+            });
         }
     </script>
 </body>
