@@ -252,11 +252,11 @@
                 const processText = text => {
                     if (!text) return '';
                     return processCodeBlocks(text
-                        .replace(/\n/g '<br>')
-                        .replace(/\*\*(.*?)\*\*/g '<strong>$1</strong>')
-                        .replace(/\*(.*?)\*/g '<em>$1</em>')
-                        .replace(/\\\((.*?)\\\)/g '\\( $1 \\)')
-                        .replace(/\\\[(.*?)\\\]/g '\\[ $1 \\]')
+                        .replace(/\n/g, '<br>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
+                        .replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]')
                     );
                 };
 
