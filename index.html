@@ -240,25 +240,14 @@
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
-            messageDiv.innerHTML = generateStaticContent(role, content);
+            messageDiv.innerHTML =
+                `<strong>${role === 'user' ? '您' : '助手'}:</strong>${content.replace(/\n/g, '<br>')}`;
             conversation.appendChild(messageDiv);
             
             if (window.MathJax) {
                 MathJax.typesetPromise([messageDiv]);
             }
             conversation.scrollTop = conversation.scrollHeight;
-        }
-
-        function generateStaticContent(role, content) {
-            const processed = content
-                .split(/\n\n+/).map(p => `<p>${p}</p>`).join('')
-                .replace(/\n/g, '<br>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
-                .replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
-
-            return `<strong>${role === 'user' ? '您' : '助手'}:</strong>${processed}`;
         }
     </script>
 </body>
