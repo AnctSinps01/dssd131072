@@ -9,24 +9,26 @@
         .code-container {
             position: relative;
             margin: 0;
+            line-height: 1.6;
             border: 1px solid #ddd;
             border-radius: 4px;
             color: #f8f8f8;
             background-color: #202472;
             font-size: 0.9em;
+            white-space: pre-line;
         }
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding: 0;
-            height: 20px;
+            height: 25px;
             background-color: #000000;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            font-size: 0.9em;
+            font-size: 1.2em;
         }
         .copy-btn {
             cursor: pointer;
@@ -209,10 +211,10 @@
                             }
 
                             // 首段缩进处理
-                            let displayContent = fullResponse;
-                            if (isFirstChunk && !displayContent.startsWith('\n')) {
-                                displayContent = '　　' + displayContent;
-                                isFirstChunk = false;
+                            //let displayContent = fullResponse;
+                            //if (isFirstChunk && !displayContent.startsWith('\n')) {
+                            //    displayContent = '　　' + displayContent;
+                            //    isFirstChunk = false;
                             }
 
                             // 更新显示
