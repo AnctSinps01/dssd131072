@@ -7,6 +7,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         .code-wrapper {
+            position: relative;
             margin: 1em 0;       /* 统一外边距 */
             border-radius: 13px;  /* 圆角统一到父容器 */
             background-color: #000000; 
@@ -15,7 +16,7 @@
         .code-container {
             position: absolute;
             padding: 0;
-            margin: 0px, 0px;
+            margin: 0px, 10px;
             top: 40px;
             left: 0px;
             right: 0px;
@@ -58,9 +59,9 @@
         pre code {
             white-space: pre;
             font-family: 'Fira Code', 'Consolas', monospace;
-            background-color: #202472;
+            background-color: #000000;
             border-radius: 3px;
-            padding: 0.2em 6.4em;
+            padding: 0.2em 0em;
         }
 
         .math-container {
