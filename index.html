@@ -16,6 +16,9 @@
             background-color: #202472;
             font-size: 0.9em;
             white-space: pre-wrap;
+            padding-top: 25px;
+            overflow: auto;
+            Word-wrap: break-word;
         }
         .code-header {
             padding: 0;
@@ -28,19 +31,16 @@
             font-size: 1.2em;
         }
 
-        .code-header span:first-child {
+        .code-header span:lang-text {
             position: absolute;
-            left: 2px;
-            top: 2px;
-        }
-
-        .code-header span:last-child {
-            position: absolute;
-            right: 2px;
-            top: 2px;
+            left: 0;
+            top: 0;
         }
         
         .copy-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
             cursor: pointer;
             color: #0366d6;
         }
@@ -220,13 +220,6 @@
                                 fullResponse += delta.content || '';
                             }
 
-                            // 首段缩进处理
-                            //let displayContent = fullResponse;
-                            //if (isFirstChunk && !displayContent.startsWith('\n')) {
-                            //    displayContent = '　　' + displayContent;
-                            //    isFirstChunk = false;
-                            //}
-
                             // 更新显示
                             messageDiv.innerHTML = generateMessageHtml(
                                 modelVersion,
@@ -263,7 +256,7 @@
                     return text.replace(/```(\w*)\s*([\s\S]*?)```/g, (match, lang, code) => {
                         return `<div class="code-container">
                             <div class="code-header">
-                                <span>${lang}</span>
+                                <span class="lang-text">${lang}</span>
                                 <span class="copy-btn" onclick="copyCode(this)">复制</span>
                             </div>
                             <pre><code>${code.trim()}</code></pre>
