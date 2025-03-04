@@ -54,8 +54,16 @@
         .copy-btn:hover {
             text-decoration: underline;
         }
+
         pre code {
             white-space: pre;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background-color: #000000;
+            color: #f8f8f8;
+            border-radius: 3px;
+            padding: 0.2em 0em;
+        }
+        code:not(pre code) {
             font-family: 'Fira Code', 'Consolas', monospace;
             background-color: #000000;
             color: #f8f8f8;
@@ -274,11 +282,11 @@
                 const processText = text => {
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
-                    processed = processed.replace(/(\n|^)\s*`([^`]+)`\s*(\n|$)/g, (match, before, content, after) => {
-                        return `<pre><code>${content}</code></pre>`;
-                    });
+                    //processed = processed.replace(/(\n|^)\s*`([^`]+)`\s*(\n|$)/g, (match, before, content, after) => {
+                    //    return `<pre><code>${content}</code></pre>`;
+                    //});
                     processed = processed.replace(/`([^`]+)`/g, (match, p1) => {
-                        return `<pre><code>${p1}</code></pre>`;
+                        return `<code> ${p1.trim()} </code>`;
                     });
                     processed = processed
                         .replace(/\n/g, '<br>')
