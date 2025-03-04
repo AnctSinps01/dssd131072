@@ -33,13 +33,13 @@
 
         .lang-text {
             position: absolute;
-            left: 5px;
+            left: 10px;
             top: 5px;
         }
         
         .copy-btn {
             position: absolute;
-            right: 5px;
+            right: 10px;
             top: 5px;
             cursor: pointer;
             color: #0366d6;
@@ -256,7 +256,7 @@
                     return text.replace(/```(\w*)\s*([\s\S]*?)```/g, (match, lang, code) => {
                         return `<div class="code-container">
                             <div class="code-header">
-                                <span class="lang-text">${lang}</span>
+                                <span class="lang-text">${lang || "text"}</span>
                                 <span class="copy-btn" onclick="copyCode(this)">复制</span>
                             </div>
                             <pre><code>${code.trim()}</code></pre>
