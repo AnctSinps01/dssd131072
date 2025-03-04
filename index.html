@@ -13,7 +13,6 @@
             margin: 0.1em 0;
             padding-top: 0px;
             padding-bottom: 0px;
-            font-size: 0;
             border-radius: 13px;
             background-color: #ff0000;
             border: 1px solid #ddd;
@@ -260,28 +259,14 @@
             function generateMessageHtml(model, thinking, answer) {
 
                 const processCodeBlocks = text => {
-                    return text.replace(/```(\w*)\s*([\s\S]*?)```/g, (match, lang, code) => {
-                        return `
-                            <div class="code-wrapper">
-                                <div class="code-header">
-                                    <span class="lang-text">${lang || "text"}</span>
-                                    <span class="copy-btn" onclick="copyCode(this)">复制</span>
-                                </div>
-                                <div class="code-container">
-                                    <pre><code>${code.trim()}</code></pre>
-                                </div>
-                            </div>
-                        `;
+                    return text.replace(/(\n|^)```(\w*)\s*([\s\S]*?)```(\n|$)/g, (match, before, lang, code, after) => {
+                        return `${before ? '' : ''}<div class="code-wrapper"><div class="code-header"><span class="lang-text">${lang||"text"}</span><span class="copy-btn" onclick="copyCode(this)">复制</span></div><div class="code-container"><pre><code>${code.trim()}</code></pre></div></div>${after ? '' : ''}`;
                     });
                 };
                 // 文本处理函数
                 const processText = text => {
                     if (!text) return '';
-                    
-                    // 先处理代码块
                     let processed = processCodeBlocks(text);
-                    
-                    // 再处理其他格式
                     processed = processed
                         .replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
