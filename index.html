@@ -17,7 +17,7 @@
             margin: 0px, 0px;
             line-height: 1.6;
             color: #f8f8f8;
-            background-color: #202472;
+            background-color: #000000;
             font-size: 0.9em;
             white-space: pre-wrap;
             padding-left: 25px;
@@ -28,7 +28,7 @@
             padding: 0;
             margin: 0px, 0px;
             height: 35px;
-            background-color: #000000;
+            background-color: #202020;
             color: #f8f8f8;
             position: relative;
             font-size: 1.2em;
@@ -45,7 +45,6 @@
             right: 10px;
             top: 5px;
             cursor: pointer;
-            color: #0366d6;
         }
         .copy-btn:hover {
             text-decoration: underline;
@@ -319,7 +318,11 @@
 
         // 新增复制功能
         function copyCode(button) {
-            const code = button.closest('.code-header').querySelector('code').textContent;
+            // 通过父容器查找代码块
+            const wrapper = button.closest('.code-wrapper');
+            const code = wrapper.querySelector('code').innerText;
+    
+            // 复制到剪贴板
             navigator.clipboard.writeText(code).then(() => {
                 button.textContent = '已复制!';
                 setTimeout(() => button.textContent = '复制', 2000);
