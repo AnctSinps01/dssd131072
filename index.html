@@ -252,11 +252,12 @@
 
                 const processCodeBlocks = text => {
                     return text.replace(/```(\w*)\s*([\s\S]*?)```/g, (match, lang, code) => {
-                        return `<div class="code-container">
+                        return `
                             <div class="code-header">
                                 <span class="lang-text">${lang || "text"}</span>
                                 <span class="copy-btn" onclick="copyCode(this)">复制</span>
                             </div>
+                        <div class="code-container">
                             <pre><code>${code.trim()}</code></pre>
                         </div>`;
                     });
