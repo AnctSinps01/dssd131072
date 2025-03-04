@@ -211,11 +211,11 @@
                             }
 
                             // 首段缩进处理
-                            //let displayContent = fullResponse;
-                            //if (isFirstChunk && !displayContent.startsWith('\n')) {
+                            let displayContent = fullResponse;
+                            if (isFirstChunk && !displayContent.startsWith('\n')) {
                             //    displayContent = '　　' + displayContent;
-                            //    isFirstChunk = false;
-                            //}
+                                isFirstChunk = false;
+                            }
 
                             // 更新显示
                             messageDiv.innerHTML = generateMessageHtml(
