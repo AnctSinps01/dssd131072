@@ -211,17 +211,17 @@
                             }
 
                             // 首段缩进处理
-                            let displayContent = fullResponse;
-                            if (isFirstChunk && !displayContent.startsWith('\n')) {
+                            //let displayContent = fullResponse;
+                            //if (isFirstChunk && !displayContent.startsWith('\n')) {
                             //    displayContent = '　　' + displayContent;
-                                isFirstChunk = false;
-                            }
+                            //    isFirstChunk = false;
+                            //}
 
                             // 更新显示
                             messageDiv.innerHTML = generateMessageHtml(
                                 modelVersion,
                                 currentThinking,
-                                displayContent
+                                fullResponse
                             );
 
                             // 数学公式渲染
@@ -299,7 +299,7 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML =
-                `<strong>${role === 'user' ? '您' : '助手'}:</strong>${content.replace(/\n/g, '<br>')}`;
+                `<strong>${role === 'user' ? '您' : '助手<br>'}:</strong>${content.replace(/\n/g, '<br>')}`;
             conversation.appendChild(messageDiv);
             
             if (window.MathJax) {
