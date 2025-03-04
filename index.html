@@ -6,6 +6,30 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+        /* 父容器设置浮动，并撑开高度 */
+        .code-wrapper {
+            float: left;
+            width: 300px;
+            margin: 0.1em 0;
+            border-radius: 13px;
+            background-color: #000000;
+            border: 1px solid #ddd;
+        }
+        .code-header {
+            padding: 10px;
+            background-color: #606060;
+            color: #f8f8f8;
+            font-size: 1.2em;
+            border-radius: 13px 13px 0 0; /* 顶部圆角与父容器匹配 */
+        }
+        .code-container {
+             padding: 10px;
+             line-height: 1.6;
+             color: #f8f8f8;
+             font-size: 0.9em;
+             white-space: pre-wrap;
+             word-wrap: break-word;
+        }
         .code-wrapper {
             position: relative;
             margin: 1em 0;       /* 统一外边距 */
