@@ -274,8 +274,12 @@
                 const processText = text => {
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
+                    processed = processed.replace(/\n/g, '<br>');
+                    processed = processed.replace(/`([^`]+)`/g, (match, p1) => {
+                        const trimmedContent = p1.trim();
+                        return `<pre><code>${trimmedContent}</code></pre>`;
+                    });
                     processed = processed
-                        .replace(/\n/g, '<br>')
                         .replace(/`([^`]+)`/g, '<pre><code>$1</code></pre>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
