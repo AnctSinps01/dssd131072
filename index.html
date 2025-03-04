@@ -11,7 +11,8 @@
             float: left;
             width: 100%;
             margin: 0.1em 0;
-            padding: 0;
+            padding-top: 0px;
+            padding-bottom: 0px;
             border-radius: 13px;
             background-color: #ff0000;
             border: 1px solid #ddd;
@@ -19,6 +20,7 @@
         .code-header {
             position: relative;
             height: 40px;
+            margin: 0px;
             padding: 5px;
             background-color: #606060;
             color: #f8f8f8;
@@ -26,13 +28,15 @@
             border-radius: 13px 13px 0 0; /* 顶部圆角与父容器匹配 */
         }
         .code-container {
-            padding: 10px;
+            margin: 0px;
+            padding: 0px 10px 0px 10px;
             line-height: 1.6;
             background-color: #00ff00;
             color: #f8f8f8;
             font-size: 0.9em;
             white-space: pre-wrap;
             word-wrap: break-word;
+            border-radius: 0 0 13px 13px;
         }
 
         .lang-text {
