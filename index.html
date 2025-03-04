@@ -274,7 +274,6 @@
                 const processText = text => {
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
-                    processed = processed.replace(/\n/g, '<br>');
                     processed = processed.replace(/(\n|^)\s*`([^`]+)`\s*(\n|$)/g, (match, before, content, after) => {
                         return `<pre><code>${content}</code></pre>`;
                     });
@@ -282,7 +281,7 @@
                         return `<pre><code>${p1}</code></pre>`;
                     });
                     processed = processed
-                        .replace(/`([^`]+)`/g, '<pre><code>$1</code></pre>')
+                        .replace(/\n/g, '<br>');
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
                         .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
