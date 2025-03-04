@@ -281,7 +281,7 @@
                         return `<pre><code>${p1}</code></pre>`;
                     });
                     processed = processed
-                        .replace(/\n/g, '<br>');
+                        .replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
                         .replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
