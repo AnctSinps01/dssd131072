@@ -305,7 +305,7 @@
                         return `<div class="math-container block">${match}</div>`;
                         // block 类用于块级公式
                     });
-                    processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[^$\n]+\$)/g, (match) => {
+                    processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                         // inline 类用于行内公式
                     });
