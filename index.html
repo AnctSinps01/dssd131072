@@ -260,14 +260,7 @@
 
                             // 数学公式渲染
                             if (window.MathJax) {
-                                const mathContainer = document.createElement('div');
-                                mathContainer.className = 'math-container';
-
-                                while (messageDiv.firstChild) {
-                                    mathContainer.appendChild(messageDiv.firstChild);
-                                }
-                                messageDiv.appendChild(mathContainer);
-                                MathJax.typesetPromise([mathContainer]);
+                                MathJax.typesetPromise([messageDiv]);
                             }
 
                         } catch (e) {
