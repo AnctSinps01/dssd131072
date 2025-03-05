@@ -74,11 +74,13 @@
         }
 
         .math-container {
+            display: inline-block;
             margin: 20px 0;
             padding: 10px;
             border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            white-space: pre-wrap;
+            background-color: #e9e9e9;
+            white-space: pre;
+            max-width: 100%;
             overflow: auto;
         }
 
@@ -254,8 +256,16 @@
 
                             // 数学公式渲染
                             if (window.MathJax) {
-                                MathJax.typesetPromise([messageDiv]);
+                                const mathContainer = document.createElement('div');
+                                mathContainer.className = 'math-container';
+
+                                while (messageDiv.firstChild) {
+                                    mathContainer.appendChild(messageDiv.firstChild);
+                                }
+                                messageDiv.appendChild(mathContainer);
+                                MathJax.typesetPromise([mathContainer]);
                             }
+
                         } catch (e) {
                             console.error('解析错误:', e);
                         }
@@ -325,10 +335,6 @@
             messageDiv.innerHTML =
                 `<strong>${role === 'user' ? '您' : '助手<br>'}:</strong>${content.replace(/\n/g, '<br>')}`;
             conversation.appendChild(messageDiv);
-            
-            if (window.MathJax) {
-                MathJax.typesetPromise([messageDiv]);
-            }
             conversation.scrollTop = conversation.scrollHeight;
         }
 
