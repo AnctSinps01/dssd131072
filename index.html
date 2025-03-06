@@ -97,13 +97,13 @@
         .input-group {
             margin-bottom: 15px;
         }
-        input, textarea, button {
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin: 5px 0;
             box-sizing: border-box;
         }
-        #conversation {
+        .conversation {
             border: 1px solid #ccc;
             min-height: 300px;
             padding: 10px;
@@ -122,10 +122,8 @@
             white-space: pre-wrap;
         }
         .model-selector {
-            width:40%;
-            border: 1px solid #ccc;
+            width:430px;
             padding: 10px;
-            border-radius: 10px;
             background-color: #f9f9f9;
         }
         input[type="radio"] {
@@ -135,6 +133,21 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            margin: 0;
+            padding: 0;
+            background-color:#54ff9f;
+        }
+        .button-send {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        .button-clear {
+            width: 200px;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
         }
         .thought {
             color: #666;
@@ -170,7 +183,7 @@
                   placeholder="请输入您的问题..."></textarea>
     </div>
 
-    <button onclick="sendMessage()">发送</button>
+    <button class="button-send" onclick="sendMessage()">发送</button>
 
     <div id="conversation"></div>
 
