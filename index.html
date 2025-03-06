@@ -24,7 +24,7 @@
             background-color: #606060;
             color: #f8f8f8;
             font-size: 0.9em;
-            border-radius: 13px 13px 0 0; /* 顶部圆角与父容器匹配 */
+            border-radius: 13px 13px 0 0;
         }
         .code-container {
             margin: 0px;
@@ -93,7 +93,7 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #87ceeb;
+            background-color: #101010;
         }
         .input-group {
             margin-bottom: 15px;
@@ -125,7 +125,7 @@
         .model-selector {
             width:430px;
             padding: 5px;
-            background-color: #000000;
+            background-color: #101010;
         }
         input[type="radio"] {
             width: auto;
@@ -182,6 +182,7 @@
             <input type="radio" id="option2" name="modelVersion" value="deepseek-reasoner">
             <label for="option2">Deepseek-R1</label>
         </div>
+        <button class="button-clear" onclick="clearHistory()">清空对话记录</button>
     </div>
 
     <div class="input-group">
@@ -202,6 +203,17 @@
             const div = document.createElement('div');
             div.textContent = html;
             return div.innerHTML;
+        }
+
+        function clearHistory() {
+            if (!isStreaming) {
+                const lastElement = conversationHistory[conversationHistory.length - 1];
+
+                if (lastElement.role === 'assistant') {
+                    conversationHistory = [];
+                    document.getElementById('conversation').innerHTML = '';
+                }
+            }
         }
 
         async function sendMessage() {
