@@ -104,7 +104,7 @@
             margin: 5px 0;
             box-sizing: border-box;
         }
-        .conversation {
+        #conversation {
             border: 1px solid #ccc;
             min-height: 300px;
             padding: 10px;
@@ -150,11 +150,11 @@
         }
         .button-clear {
             position: absolute;
-            top: 0px;
-            left: 145px;
+            top: 5px;
+            left: 180px;
             width: 125px;
-            padding: 7px;
-            margin: 5px 0;
+            padding: 8px;
+            margin: 0;
             border-radius: 10px;
             background-color: #ff4500;
         }
@@ -163,10 +163,13 @@
             font-style: italic;
             margin-bottom: 5px;
         }
+        #apiKey::placeholder {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
-    <h2>DeepSeek 对话助手</h2>
+    <h2 style="color: #ffffff;">DeepSeek 对话助手</h2>
 
     <div class="input-group">
         <input type="password" 
