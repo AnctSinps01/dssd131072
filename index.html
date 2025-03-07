@@ -129,6 +129,17 @@
             padding: 10px;
             background-color: #101010;
         }
+        .model-option {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            width: 130px;
+            margin: 5px;
+            padding: 5px;
+            border-radius: 10px;
+            background-color:#ff3030;
+            color: #dfdfdf;
+        }
         input[type="radio"] {
             all: unset;
             appearance: none;
@@ -147,17 +158,6 @@
             height: 16px;
             border: 8px solid #000000;
         }
-        .model-option {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            width: 130px;
-            margin: 5px;
-            padding: 12px;
-            border-radius: 7px;
-            background-color:#ff3030;
-            color: #dfdfdf;
-        }
         .button-send {
             width: 100%;
             padding: 10px;
@@ -168,12 +168,16 @@
         }
         .button-clear {
             position: absolute;
-            top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            top: 10px;
             left: 160px;
-            width: 125px;
-            padding: 8px;
-            margin: 0;
+            width: 110px;
+            height: 40px;
             border-radius: 10px;
+
             background-color: #ff4500;
             color: #dfdfdf;
         }
