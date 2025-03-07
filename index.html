@@ -129,7 +129,19 @@
             background-color: #101010;
         }
         input[type="radio"] {
-            width: auto;
+            appearance: none;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #999;
+            transition: 0.2s all linear;
+            margin-right: 5px;
+
+            position: relative;
+            top: 4px;
+        }
+        input[type="radio"]:checked {
+            border: 6px solid black;
         }
         .model-option {
             display: flex;
@@ -140,6 +152,7 @@
             padding: 5px;
             border-radius: 10px;
             background-color:#ff3030;
+            color: #dfdfdf;
         }
         .button-send {
             width: 100%;
@@ -147,6 +160,7 @@
             margin: 5px 0;
             box-sizing: border-box;
             background-color: #ff3030;
+            color: #dfdfdf;
         }
         .button-clear {
             position: absolute;
@@ -157,6 +171,7 @@
             margin: 0;
             border-radius: 10px;
             background-color: #ff4500;
+            color: #dfdfdf;
         }
         .thought {
             color: #666;
