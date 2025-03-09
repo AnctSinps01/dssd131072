@@ -263,7 +263,14 @@
 
             try {
                 conversationHistory.push({ role: 'user', content: question });
-                addMessage('user', escapeHTML(question));
+                //addMessage('user', escapeHTML(question));
+
+                messageDiv.innerHTML = generateMessageHtml(
+                    '',            // 模型标识置空
+                    '',            // thinking内容置空
+                    question,       // 用户消息内容
+                    'user'         // 明确角色标识
+                );
 
                 // 创建消息容器
                 const messageDiv = document.createElement('div');
@@ -343,7 +350,7 @@
                 document.getElementById('question').value = '';
             }
 
-            function generateMessageHtml(model, thinking, answer) {
+            function generateMessageHtml(model, thinking, answer, role = 'assistant') {
 
                 const processCodeBlocks = text => {
                     return text.replace(/(\n|^)```(\w*)\s*([\s\S]*?)```(\n|$)/g, (match, before, lang, code, after) => {
@@ -368,15 +375,16 @@
                     });
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
-                        // inline 类用于行内公式
                     });
-                        //.replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
-                        //.replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
                 
                     return processed;
                 };
 
-                let content = '<strong>助手:</strong>';
+                let content = `<strong>${role === 'user' ? '您' : '助手'}:</strong>`;
+
+                if (role === 'user') {
+                    return processText(answer);
+                }
                 
                 if (model === 'deepseek-reasoner' && thinking) {
                     content += `
@@ -396,8 +404,6 @@
             const conversation = document.getElementById('conversation');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
-            messageDiv.innerHTML =
-                `<strong>${role === 'user' ? '您' : '助手<br>'}:</strong>${content.replace(/\n/g, '<br>')}`;
             conversation.appendChild(messageDiv);
             conversation.scrollTop = conversation.scrollHeight;
         }
