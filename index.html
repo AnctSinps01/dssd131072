@@ -265,17 +265,12 @@
                 conversationHistory.push({ role: 'user', content: question });
                 //addMessage('user', escapeHTML(question));
 
-                messageDiv.innerHTML = generateMessageHtml(
-                    '',            // 模型标识置空
-                    '',            // thinking内容置空
-                    question,       // 用户消息内容
-                    'user'         // 明确角色标识
-                );
-
                 // 创建消息容器
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message assistant`;
                 conversation.appendChild(messageDiv);
+
+                 messageDiv.innerHTML = generateMessageHtml('', '', question, 'user');
                 
                 // 初始化流式处理变量
                 let fullResponse = '';
