@@ -81,7 +81,7 @@
             display: block;
             margin: 5px 5px;
             padding: 10px 0px;
-            background-color: #f5f5f5;
+            background-color: #ee6363;
             white-space: pre;
             font-size: 0.8rem;
             overflow: auto;
@@ -89,8 +89,9 @@
         .math-container.inline {
             display: inline-block;
             vertical-align: middle;
-            padding: 2px 4px;
+            padding: 2px 2px;
             font-size: 0.8rem;
+            background-color: #ee6363;
         }
 
         body {
@@ -102,16 +103,15 @@
         }
         .input-group {
             margin-bottom: 15px;
-            border: 1px solid #a52a2a;
         }
         input, textarea {
             width: 100%;
             padding: 10px;
             margin: 5px 0;
             box-sizing: border-box;
+            border: 1px solid #a52a2a;
         }
         #conversation {
-            border: 1px solid #a52a2a;
             min-height: 300px;
             padding: 10px;
             margin: 10px 0;
@@ -146,6 +146,7 @@
             margin: 5px;
             padding: 10px 10px;
             border-radius: 10px;
+            border: 1px solid #a52a2a;
             background-color:#ff3030;
             color: #dfdfdf;
         }
@@ -177,6 +178,7 @@
             margin: 5px 0;
             box-sizing: border-box;
             background-color: #ff3030;
+            border: 8px solid #b22222;
             color: #dfdfdf;
         }
         .button-clear {
@@ -194,9 +196,11 @@
 
             background-color: #ff4500;
             color: #dfdfdf;
+            border: 8px solid #b22222;
         }
         .thought {
-            color: #666;
+            color: #ddd;
+            background-color: #ee6363;
             font-style: italic;
             font-size: 0.8rem;
             margin-bottom: 5px;
@@ -326,14 +330,13 @@
                             }
                             // 更新显示
                             messageDiv.innerHTML = generateMessageHtml(modelVersion, currentThinking, fullResponse);
-
+                            // 数学公式渲染
+                            if (window.MathJax) {
+                                MathJax.typesetPromise([messageDiv]);
+                            }
                         } catch (e) {
                             console.error('解析错误:', e);
                         }
-                    }
-                    // 数学公式渲染
-                    if (window.MathJax) {
-                        MathJax.typesetPromise([messageDiv]);
                     }
                     conversation.scrollTop = conversation.scrollHeight;
                 }
