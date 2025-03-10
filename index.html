@@ -115,6 +115,7 @@
             margin: 10px 0;
         }
         .message {
+            font-size: 0.9em;
             margin: 10px 0;
             padding: 8px;
             border-radius: 5px;
@@ -320,13 +321,13 @@
                             console.error('解析错误:', e);
                         }
                     }
+                    // 数学公式渲染
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([messageDiv]);
+                    }
                     conversation.scrollTop = conversation.scrollHeight;
                 }
-                // 数学公式渲染
-                if (window.MathJax) {
-                    MathJax.typesetPromise([messageDiv]);
-                }
-
+                
                 // 保存完整响应到历史
                 conversationHistory.push({ role: 'assistant', content: fullResponse });
                 conversationHistory = conversationHistory.slice(-18);
