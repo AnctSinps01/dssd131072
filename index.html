@@ -90,7 +90,6 @@
 
         body {
             font-family: Arial, sans-serif;
-            font-size: 0.9em;
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
@@ -106,6 +105,7 @@
             box-sizing: border-box;
         }
         #conversation {
+            font-size: 0.9rem;
             border: 1px solid #ccc;
             min-height: 300px;
             padding: 10px;
@@ -390,7 +390,7 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
             messageDiv.innerHTML = 
-                `<strong>${role === 'user' ? '您' : '助手:'}</strong><div>${content.replace(/\n/g, '<br>')}</div>`;
+                `<div><strong>${role === 'user' ? '您:' : '助手:'}</strong>${content.replace(/\n/g, '<br>')}</div>`;
             conversation.appendChild(messageDiv);
             conversation.scrollTop = conversation.scrollHeight;
         }
