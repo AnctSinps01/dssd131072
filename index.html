@@ -279,8 +279,8 @@
             const conversation = document.getElementById('conversation');
             const sendButton = document.querySelector('button');
 
-            if (!apiKey) return alert('请输入API Key');
-            if (!question) return alert('请输入问题');
+            if (!apiKey) return;
+            if (!question) return;
 
             // 禁用按钮和输入
             sendButton.disabled = true;
