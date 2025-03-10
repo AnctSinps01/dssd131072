@@ -66,6 +66,7 @@
         }
         code:not(pre code) {
             font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85em;
             background-color: #e0e0e0;
             color: #202020;
             border-radius: 3px;
@@ -104,13 +105,14 @@
             box-sizing: border-box;
         }
         #conversation {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             border: 1px solid #ccc;
             min-height: 300px;
             padding: 10px;
             margin: 10px 0;
         }
         .message {
+            font-size: 0.9rem;
             margin: 10px 0;
             padding: 8px;
             border-radius: 5px;
@@ -362,8 +364,6 @@
                         return `<span class="math-container inline">${match}</span>`;
                         // inline 类用于行内公式
                     });
-                        //.replace(/\\\((.*?)\\\)/g, '\\( $1 \\)')
-                        //.replace(/\\\[(.*?)\\\]/g, '\\[ $1 \\]');
                 
                     return processed;
                 };
