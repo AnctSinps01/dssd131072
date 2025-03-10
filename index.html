@@ -74,6 +74,7 @@
         }
 
         .math-container.block {
+            font-size: 0.9em;
             display: block;
             margin: 5px 5px;
             padding: 10px;
@@ -83,6 +84,7 @@
             overflow: auto;
         }
         .math-container.inline {
+            font-size: 0.9em;
             display: inline-block;
             vertical-align: middle;
             padding: 2px 4px;
@@ -311,24 +313,18 @@
                             } else {
                                 fullResponse += escapeHTML(delta.content) || '';
                             }
-
                             // 更新显示
-                            messageDiv.innerHTML = generateMessageHtml(
-                                modelVersion,
-                                currentThinking,
-                                fullResponse
-                            );
-
-                            // 数学公式渲染
-                            if (window.MathJax) {
-                                MathJax.typesetPromise([messageDiv]);
-                            }
+                            messageDiv.innerHTML = generateMessageHtml(modelVersion, currentThinking, fullResponse);
 
                         } catch (e) {
                             console.error('解析错误:', e);
                         }
                     }
                     conversation.scrollTop = conversation.scrollHeight;
+                }
+                // 数学公式渲染
+                if (window.MathJax) {
+                    MathJax.typesetPromise([messageDiv]);
                 }
 
                 // 保存完整响应到历史
