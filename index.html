@@ -337,6 +337,10 @@
                             }
                             // 更新显示
                             messageDiv.innerHTML = generateMessageHtml(modelVersion, currentThinking, fullResponse);
+
+                            if (window.MathJax) {
+                                MathJax.typesetPromise([...messageDiv.querySelectorAll('.math-container.block, .math-container.inline')]);
+                            }
                         } catch (e) {
                             console.error('解析错误:', e);
                         }
