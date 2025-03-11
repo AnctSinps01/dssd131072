@@ -347,7 +347,13 @@
                             messageDiv.innerHTML = generateMessageHtml(modelVersion, currentThinking, fullResponse);
 
                             if (window.MathJax) {
-                                MathJax.typesetPromise([...messageDiv.querySelectorAll('.math-container.block, .math-container.inline')]);
+                                const mathContainers = messageDiv.querySelectorAll('.math-container.block, .math-container.inline');
+                                if (mathContainers.length >= 2) {
+                                    const lastTwoMathContainers = [mathContainers[mathContainers.length - 2], mathContainers[mathContainers.length - 1]];
+                                    MathJax.typesetPromise(lastTwoMathContainers);
+                                } else if (mathContainers.length === 1) {
+                                    MathJax.typesetPromise([mathContainers[0]]);
+                                }
                             }
                         } catch (e) {
                             console.error('解析错误:', e);
