@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <title>DeepSeek 对话助手</title>
     <script>
-    MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']]
-        }
-    };
+        MathJax = {
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                }
+            },
+            options: {
+                enableMenu: false,
+                renderActions: {
+                    // 禁用 DOM 更新时的重新渲染
+                    addElement: [],
+                    updateElement: [],
+                    removeElement: []
+                }
+            },
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
     </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -276,14 +290,16 @@
         }
 
         function renderMathJax(container) {
-            MathJax.typesetPromise([container]).then(() => {
-                // 渲染完成后移除原始公式内容
-                container.querySelectorAll('.math-container.block, .math-container.inline').forEach(element => {
-                    element.remove();
-                });
-            }).catch(err => {
-                console.error('MathJax渲染失败:', err);
+            const elements = container.querySelectorAll('.math-container:not([data-rendered])');
+            elements.forEach(el => {
+                el.setAttribute('data-rendered', 'true');
             });
+    
+            if (elements.length > 0) {
+                MathJax.typesetPromise(elements).catch(err => {
+                    console.error('MathJax渲染错误:', err);
+                });
+            }
         }
 
         async function sendMessage() {
@@ -361,6 +377,7 @@
                             console.error('解析错误:', e);
                         }
                     }
+                    renderMathJax(messageDiv);
                     conversation.scrollTop = conversation.scrollHeight;
                 }
                 
