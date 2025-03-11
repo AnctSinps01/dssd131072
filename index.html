@@ -413,8 +413,11 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(/(\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$)/g, (match) => {
-                        return `<div class="math-container block">${match}</div>`;
-                        // block 类用于块级公式
+                        if (match.startsWith('$$')) {
+                            return `<div class="math-container block">\\[${match.slice(2, -2)}\\]</div>`;
+                        } else {
+                            return `<div class="math-container block">${match}</div>`;
+                        }
                     });
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
