@@ -3,28 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>DeepSeek 对话助手</title>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$']]
-            },
-            options: {
-                // 禁用默认的自动扫描
-                enableAssistiveMml: false,
-                skipHtmlTags: {'[data-math]': false}, // 允许自定义数据属性
-                // 强制忽略所有未明确指定的元素
-                ignoreHtmlClass: '*', // 通配符忽略所有
-                processHtmlClass: ''    // 不处理任何类
-            },
-            startup: {
-                // 直接锁定唯一容器的DOM元素
-                elements: [document.getElementById('math-container')],
-                // 禁用自动搜索文档中的公式
-                typeset: false
-            }
-        };
-    </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -398,12 +376,10 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(/(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\])/g, (match) => {
-                        MathJax.typesetPromise();
                         return `<div class="math-container block">${match}</div>`;
                         // block 类用于块级公式
                     });
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
-                        MathJax.typesetPromise();
                         return `<span class="math-container inline">${match}</span>`;
                         // inline 类用于行内公式
                     });
