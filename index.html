@@ -311,14 +311,16 @@
             }
 
             const tablesElements = container.querySelectorAll('.tables-container:not([tables-rendered])');
-            tablesElements.forEach(el => {
-                try {
-                    el.innerHTML = marked.parse(el.textContent);
-                    el.setAttribute('tables-rendered', 'true');
-                } catch (err) {
-                    console.error('Markdown渲染错误:', err);
-                }
-            });
+            if (tablesElements.length > 0) {
+                tablesElements.forEach(el => {
+                    try {
+                        el.innerHTML = marked.parse(el.textContent);
+                        el.setAttribute('tables-rendered', 'true');
+                    } catch (err) {
+                        console.error('Markdown渲染错误:', err);
+                    }
+                });
+            }
         }
 
         async function sendMessage() {
