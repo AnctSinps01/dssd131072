@@ -445,10 +445,10 @@
                         return `<span class="math-container inline">${match}</span>`;
                     });
                     processed = processed.replace(
-                        /(\|.*\|[\r\n]+\|[\s:-\|]+\|[\r\n]+(?:\|.*\|[\r\n]*)+)/gm,
-                        '<div class="tables-container">$1</div>'
+                        /(\|.*\|[\r\n]+\|[\s:-]+\|[\r\n]+(?:\|.*\|[\r\n]*)+)/gm,
+                        '<div class="tables-container">\n$1</div>'
                     );
-                
+
                     return processed;
                 };
 
