@@ -118,7 +118,7 @@
         .tables-container {
             display: block;
             margin: 0px 0px;
-            padding: 5px 5px;
+            padding: 15px 15px;
             background-color: #006363;
             white-space: nowrap;
             font-size: 0.8rem;
@@ -444,10 +444,9 @@
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                     });
-                    processed = processed.replace(
-                        /\|[\s\S]*?\|/g,
-                        '<div class="tables-container">$1</div>'
-                    );
+                    processed = processed.replace(/\|[\s\S]*?\|/g, (match) => {
+                        return `<span class="tables-container">${match}</span>`;
+                    });
 
                     return processed;
                 };
