@@ -426,7 +426,7 @@
                 const processText = text => {
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
-                    processed = processed.replace(/`([^`]+)`/g, (match, p1) => {
+                    processed = processed.replace(/[^`]`([^`]+)`[^`]/g, (match, p1) => {
                         return `<code> ${p1.trim()} </code>`;
                     });
                     processed = processed
