@@ -423,6 +423,9 @@
                         return `<span class="math-container inline">${match}</span>`;
                         // inline 类用于行内公式
                     });
+                    processed = processed.replace(/^\|.*\|[\r\n]+\|(?:\s*:?-{3,}:?\s*\|)+[\r\n]+(?:\|.*\|[\r\n]*)+/gm, (match) => {
+                        return `<div class="math-container block">${match}</div>`;
+                    });
                 
                     return processed;
                 };
