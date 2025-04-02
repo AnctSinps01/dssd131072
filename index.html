@@ -27,6 +27,7 @@
     </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             font-size: 16px !important;
@@ -113,6 +114,15 @@
             padding: 2px 2px;
             font-size: 0.8rem;
             background-color: #ee6363;
+        }
+        .tables-container {
+            display: block;
+            margin: 0px 0px;
+            padding: 5px 5px;
+            background-color: #ee6363;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            overflow: auto;
         }
 
         body {
@@ -289,17 +299,26 @@
             }
         }
 
-        function renderMathJax(container) {
+        function renderMarkdown(container) {
             const elements = container.querySelectorAll('.math-container:not([data-rendered])');
             elements.forEach(el => {
                 el.setAttribute('data-rendered', 'true');
             });
-    
             if (elements.length > 0) {
                 MathJax.typesetPromise(elements).catch(err => {
                     console.error('MathJax渲染错误:', err);
                 });
             }
+
+            const tablesElements = container.querySelectorAll('.tables-container:not([tables-rendered])');
+            tablesElements.forEach(el => {
+                try {
+                    el.innerHTML = marked.parse(el.textContent);
+                    el.setAttribute('tables-rendered', 'true');
+                } catch (err) {
+                    console.error('Markdown渲染错误:', err);
+                }
+            });
         }
 
         async function sendMessage() {
@@ -377,7 +396,7 @@
                             console.error('解析错误:', e);
                         }
                     }
-                    renderMathJax(messageDiv);
+                    renderMarkdown(messageDiv);
                     conversation.scrollTop = conversation.scrollHeight;
                 }
                 
@@ -421,10 +440,9 @@
                     });
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
-                        // inline 类用于行内公式
                     });
                     processed = processed.replace(/^\|.*\|[\r\n]+\|(?:\s*:?-{3,}:?\s*\|)+[\r\n]+(?:\|.*\|[\r\n]*)+/gm, (match) => {
-                        return `<div class="math-container block">${match}</div>`;
+                        return `<div class="tables-container">${match}</div>`;
                     });
                 
                     return processed;
