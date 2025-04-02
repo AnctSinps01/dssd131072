@@ -314,7 +314,8 @@
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
                     try {
-                        el.innerHTML = marked.parse(el.textContent);
+                        marked.setOptions({ gfm: true });
+                        el.innerHTML = marked.parse(el.textContent.trim());
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
                         console.error('Markdown渲染错误:', err);
@@ -443,9 +444,10 @@
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                     });
-                    processed = processed.replace(/^\|.*\|[\r\n]+\|(?:\s*:?-{3,}:?\s*\|)+[\r\n]+(?:\|.*\|[\r\n]*)+/gm, (match) => {
-                        return `<div class="tables-container">${match}</div>`;
-                    });
+                    processed = processed.replace(
+                        /(\|.*\|[\r\n]+\|[\s:-|]+\|[\r\n]+(?:\|.*\|[\r\n]*)+)/gm,
+                        '<div class="tables-container">$1</div>'
+                    );
                 
                     return processed;
                 };
