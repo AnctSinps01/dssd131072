@@ -444,7 +444,7 @@
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                     });
-                    processed = processed.replace(/\|[\s\S]*\|[\n\r]/g, (match) => {
+                    processed = processed.replace(/\|[\s\S]*\|/g, (match) => {
                         return `<div class="tables-container">${match}</div>`;
                     });
 
