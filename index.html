@@ -446,6 +446,12 @@
                 const processText = text => {
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
+
+                    processed = processed.replace(tableRegExp, (match) => {
+                        return `<div class="tables-container">okokok</div>`;
+                    });
+                    //processed = `<div class="tables-container">${extractTables(processed)}</div>`;
+
                     processed = processed.replace(/[^`]`([^`]+)`[^`]/g, (match, p1) => {
                         return `<code> ${p1.trim()} </code>`;
                     });
@@ -464,10 +470,6 @@
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                     });
-                    processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container">okokok</div>`;
-                    });
-                    //processed = `<div class="tables-container">${extractTables(processed)}</div>`;
 
                     return processed;
                 };
