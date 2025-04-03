@@ -288,6 +288,26 @@
             return div.innerHTML;
         }
 
+        // Markdown表格正则表达式
+        const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)+)/g;
+        // 表格提取函数
+        function extractTables(text) {
+            const matches = [];
+            let match;
+            
+            while ((match = tableRegExp.exec(text)) !== null) {
+                // 拼接完整的表格文本
+                const fullTable = match[2] + match[3] + match[4];
+                matches.push(fullTable.trim());
+            }
+            return matches.join('\n\n');
+        }
+        // 配置marked
+        marked.setOptions({
+            breaks: true,
+            gfm: true
+        });
+
         function clearHistory() {
             if (!isStreaming) {
                 const lastElement = conversationHistory[conversationHistory.length - 1];
@@ -444,9 +464,10 @@
                     processed = processed.replace(/(\\\([\s\S]*?\\\)|\$[\s\S]*?\$)/g, (match) => {
                         return `<span class="math-container inline">${match}</span>`;
                     });
-                    processed = processed.replace(/\|[\s\S]*\|/g, (match) => {
+                    /*processed = processed.replace(/\|[\s\S]*\|/g, (match) => {
                         return `<div class="tables-container">${match}</div>`;
-                    });
+                    });*/
+                    processed = `<div class="tables-container">${extractTables(processed)}</div>`;
 
                     return processed;
                 };
