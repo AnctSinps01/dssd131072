@@ -289,7 +289,7 @@
         }
 
         // Markdown表格正则表达式
-        const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)+)/g;
+        const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*)/g;
         // 表格提取函数
         function extractTables(text) {
             const matches = [];
