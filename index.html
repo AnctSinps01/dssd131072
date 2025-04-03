@@ -335,7 +335,7 @@
                 tablesElements.forEach(el => {
                     try {
                         marked.setOptions({ gfm: true });
-                        el.innerHTML = marked.parse(el.textContent);
+                        el.innerHTML = marked.parse((el.textContent).replace(/\n/g, '\n'));
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
                         console.error('Markdown渲染错误:', err);
