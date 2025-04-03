@@ -447,13 +447,6 @@
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
 
-                    processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container">${match}</div>`;
-                    });
-                    /*processed = processed.replace(tableRegExp, (match) => {
-                        return match;
-                    });*/
-
                     processed = processed.replace(/[^`]`([^`]+)`[^`]/g, (match, p1) => {
                         return `<code> ${p1.trim()} </code>`;
                     });
@@ -461,6 +454,13 @@
                         .replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
+
+                    processed = processed.replace(tableRegExp, (match) => {
+                        return `<div class="tables-container"><pre>${match}</pre></div>`;
+                    });
+                    /*processed = processed.replace(tableRegExp, (match) => {
+                        return match;
+                    });*/
 
                     processed = processed.replace(/(\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$)/g, (match) => {
                         if (match.startsWith('$$')) {
