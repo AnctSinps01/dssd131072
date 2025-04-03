@@ -334,7 +334,7 @@
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
                     try {
-                        el.innerHTML = marked.parse(el.textContent);
+                        el.innerHTML = marked.parse((el.textContent).replace(/<br\s*\/?>/gi, '\n'));
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
                         console.error('Markdown渲染错误:', err);
@@ -455,7 +455,7 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container"><pre>${match.replace(/\n/g, '<br>')}</pre></div>`;
+                        return `<div class="tables-container"><pre>${match}</pre></div>`;
                     });
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
