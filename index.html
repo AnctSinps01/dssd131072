@@ -291,7 +291,7 @@
         // Markdown表格正则表达式
         const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*\n*)/g;
         // 表格提取函数
-        function extractTables(text) {
+        /*function extractTables(text) {
             const matches = [];
             let match;
             
@@ -301,7 +301,7 @@
                 matches.push(fullTable);
             }
             return matches.join('\n\n');
-        }
+        }*/
         // 配置marked
         marked.setOptions({
             breaks: true,
@@ -334,7 +334,6 @@
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
                     try {
-                        marked.setOptions({ gfm: true });
                         el.innerHTML = marked.parse(el.textContent);
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
@@ -456,7 +455,7 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container"><pre>${match.replace(/\n/g, <br>)}</pre></div>`;
+                        return `<div class="tables-container"><pre>${match.replace(/\n/g, `<br>`)}</pre></div>`;
                     });
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
