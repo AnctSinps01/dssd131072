@@ -455,7 +455,7 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container"><pre>${match.replace(/\n/g, `<br>`)}</pre></div>`;
+                        return `<div class="tables-container"><pre>${match.replace(/\n/g, '<br>')}</pre></div>`;
                     });
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
