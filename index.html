@@ -298,7 +298,7 @@
             while ((match = tableRegExp.exec(text)) !== null) {
                 // 拼接完整的表格文本
                 const fullTable = match[2] + match[3] + match[4];
-                matches.push(fullTable.trim());
+                matches.push(fullTable);
             }
             return matches.join('\n\n');
         }
@@ -448,7 +448,7 @@
                     let processed = processCodeBlocks(text);
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container"><pre>${match}</pre></div>`;
+                        return `<div class="tables-container">${match}</div>`;
                     });
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
