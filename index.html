@@ -335,7 +335,7 @@
                 tablesElements.forEach(el => {
                     try {
                         marked.setOptions({ gfm: true });
-                        el.innerHTML = marked.parse((el.textContent).replace(/\n/g, '\n'));
+                        el.innerHTML = marked.parse(el.textContent);
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
                         console.error('Markdown渲染错误:', err);
@@ -456,7 +456,7 @@
                         .replace(/\*(.*?)\*/g, '<em>$1</em>')
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container"><pre>${match}</pre></div>`;
+                        return `<div class="tables-container"><pre>${match.replace(/\n/g, <br>)}</pre></div>`;
                     });
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
