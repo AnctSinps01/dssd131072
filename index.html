@@ -334,7 +334,7 @@
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
                     try {
-                        el.innerHTML = marked.parse((el.textContent).replace(/<br\s*\/?>/gi, '\n'));
+                        el.innerHTML = marked.parse((el.textContent).replace(/<br\s*\/?>/gi, 'bruhhhh'));
                         el.setAttribute('tables-rendered', 'true');
                     } catch (err) {
                         console.error('Markdown渲染错误:', err);
