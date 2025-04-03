@@ -447,9 +447,9 @@
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
 
-                    processed = processed.replace(tableRegExp, (match) => {
+                    /*processed = processed.replace(tableRegExp, (match) => {
                         return `<div class="tables-container">${match}</div>`;
-                    });
+                    });*/
 
                     processed = processed.replace(/[^`]`([^`]+)`[^`]/g, (match, p1) => {
                         return `<code> ${p1.trim()} </code>`;
