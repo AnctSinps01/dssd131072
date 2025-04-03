@@ -289,7 +289,7 @@
         }
 
         // Markdown表格正则表达式
-        const tableRegExp = /(\n|^)[^`]*([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*\n*)/g;
+        const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*\n*)/g;
         // 表格提取函数
         function extractTables(text) {
             const matches = [];
@@ -330,7 +330,7 @@
                 });
             }
 
-            /*const tablesElements = container.querySelectorAll('.tables-container:not([tables-rendered])');
+            const tablesElements = container.querySelectorAll('.tables-container:not([tables-rendered])');
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
                     try {
@@ -341,7 +341,7 @@
                         console.error('Markdown渲染错误:', err);
                     }
                 });
-            }*/
+            }
         }
 
         async function sendMessage() {
@@ -448,7 +448,7 @@
                     let processed = processCodeBlocks(text);
 
                     processed = processed.replace(tableRegExp, (match) => {
-                        return `<div class="tables-container">okokok</div>`;
+                        return `<div class="tables-container">${match}</div>`;
                     });
 
                     processed = processed.replace(/[^`]`([^`]+)`[^`]/g, (match, p1) => {
