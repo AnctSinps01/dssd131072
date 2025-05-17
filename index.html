@@ -247,7 +247,7 @@
         }
 
         .font-edge {
-            -webkit-text-stroke: 4px #ffffff;
+            -webkit-text-stroke: 1px #ffffff;
         }
     </style>
 </head>
@@ -487,7 +487,7 @@
                         <div class="font-edge" text>回答：${processText(answer)}</div>
                     `;
                 } else {
-                    content += processText(answer);
+                    content += `<div class="font-edge" text>${processText(answer)}</div>`;
                 }
 
                 return content;
