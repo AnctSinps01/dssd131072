@@ -245,6 +245,10 @@
             font-size: 0.8rem;
             margin-bottom: 5px;
         }
+
+        .font-edge {
+            -webkit-text-stroke: 4px #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -480,7 +484,7 @@
                 if (model === 'deepseek-reasoner' && thinking) {
                     content += `
                         <div class="thought">思考：${processText(thinking)}</div>
-                        <div>回答：${processText(answer)}</div>
+                        <div class="font-edge" text>回答：${processText(answer)}</div>
                     `;
                 } else {
                     content += processText(answer);
