@@ -157,9 +157,11 @@
         .user {
             font-size: 0.8rem;
             background-color: #ee6363;
+            color: #f5deb3;
         }
         .assistant {
             font-size: 0.8rem;
+            color: #fff;
             background-color: #ee6363;
             white-space: pre-wrap;
         }
@@ -479,15 +481,16 @@
                     return processed;
                 };
 
-                let content = '<div class="font-edge" text><strong>助手:</strong></div>';
+                let content = '<strong>助手:</strong>';
                 
                 if (model === 'deepseek-reasoner' && thinking) {
                     content += `
                         <div class="thought">思考：${processText(thinking)}</div>
-                        <div class="font-edge" text>回答：${processText(answer)}</div>
+                        <div>回答：${processText(answer)}</div>
                     `;
                 } else {
-                    content += `<div class="font-edge" text>${processText(answer)}</div>`;
+                    //content += `<div class="font-edge" text>${processText(answer)}</div>`;
+                    content += processText(answer);
                 }
 
                 return content;
