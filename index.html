@@ -295,7 +295,7 @@
         }
 
         // Markdown表格正则表达式
-        const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*\n*)/g;
+        //const tableRegExp = /(\n|^)([^\n]*\|.*\n)([^\n]*[\|:-].*\n)(([^\n]*\|.*\n)*)([^\n]*\|.*\n*)/g;
         // 表格提取函数
         /*function extractTables(text) {
             const matches = [];
@@ -336,6 +336,7 @@
                 });
             }
 
+            /*
             const tablesElements = container.querySelectorAll('.tables-container:not([tables-rendered])');
             if (tablesElements.length > 0) {
                 tablesElements.forEach(el => {
@@ -346,7 +347,7 @@
                         console.error('Markdown渲染错误:', err);
                     }
                 });
-            }
+            }//*/
         }
 
         async function sendMessage() {
@@ -452,9 +453,10 @@
                     if (!text) return '';
                     let processed = processCodeBlocks(text);
 
+                    /*
                     processed = processed.replace(tableRegExp, (match) => {
                         return `<div class="tables-container"><pre>${match}</pre></div>`;
-                    });
+                    });//*/
                     /*processed = processed.replace(tableRegExp, (match) => {
                         return match;
                     });*/
